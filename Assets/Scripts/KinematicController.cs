@@ -7,6 +7,7 @@ public class KinematicController : MonoBehaviour
 
     [SerializeField] float speed = 1;
     [SerializeField] Space space = Space.World;
+    [SerializeField] private Animator animator = default;
 
 
     void Update()
@@ -25,7 +26,10 @@ public class KinematicController : MonoBehaviour
         direction = Vector3.ClampMagnitude(direction, 1);
 
         transform.rotation *= Quaternion.Euler(0,rotation * speed,0);
+        animator.SetFloat("Speed", speed);
         transform.Translate(direction * speed * Time.deltaTime, space);
+        animator.SetFloat("YVelocity", (direction * speed * Time.deltaTime).y);
+        animator.SetBool("OnGround", true);
     }
     //RGB
     //XYZ
